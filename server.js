@@ -5,8 +5,8 @@ const dotenv = require("dotenv");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const {
-  checkAuthentication,
-  restrictToLoggedInUsers,
+  checkForUserAuthentication,
+  roleRestrictedUser,
 } = require("./middleware/auth");
 
 const staticRoute = require("./routes/static");
@@ -28,14 +28,14 @@ app.set("views", path.resolve("./views"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(checkForUserAuthentication);
 
-app.use("/url", restrictToLoggedInUsers, urlRoute);
+app.use("/url", roleRestrictedUser(["ADMIN", "USER"]), urlRoute);
 app.use("/user", userRoute);
-app.use("/", checkAuthentication, staticRoute);
+app.use("/", staticRoute);
 
 app.get("/url/:shortId", async (req, res) => {
   const shortId = req.params.shortId;
-  console.log("short id", shortId);
   const urlEntry = await Url.findOneAndUpdate(
     { shortId },
     {

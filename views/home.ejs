@@ -6,10 +6,10 @@
   </head>
   <body>
     <div class="container">
-      <h1>URL Shortner</h1>
+      <h3 class="mt-4 mb-3">URL Shortner</h3>
       <% if(locals.id){ %>
       <p>
-        Generated URL:
+        Generated URL: http://localhost:5000/url/<%= id %>
         <a href="http://localhost:5000/url/<%= id %>"
           >http://localhost:5000/url/<%= id %></a
         >
@@ -30,6 +30,7 @@
         <button type="submit" class="btn btn-primary">Generate</button>
       </form>
 
+      <h3 class="mt-5 mb-3">URLs List:</h3>
       <% if(locals.urls){ %>
       <table class="table table-striped">
         <thead>

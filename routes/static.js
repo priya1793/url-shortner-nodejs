@@ -1,18 +1,19 @@
 const express = require("express");
 const router = express.Router();
-
 const Url = require("../models/url");
+const { roleRestrictedUser } = require("../middleware/auth");
 
-router.get("/", async (req, res) => {
-  // check if user does exist?
-  if (!req.user) {
-    return res.redirect("/login");
-  }
+router.get("/admin/urls", roleRestrictedUser(["ADMIN"]), async (req, res) => {
+  const urlsList = await Url.find({});
 
+  return res.render("home", {
+    urls: urlsList,
+  });
+});
+
+router.get("/", roleRestrictedUser(["USER", "ADMIN"]), async (req, res) => {
   // get all the urls list associated with the logged in user
   const urlsList = await Url.find({ createdBy: req.user._id });
-
-  console.log("urlslist", req.user._id);
 
   return res.render("home", {
     urls: urlsList,

@@ -3,7 +3,6 @@ const Url = require("../models/url");
 
 async function updateVisitedHistory(req, res) {
   const shortId = req.params.shortId;
-  console.log("short id", shortId);
   const urlEntry = await Url.findOneAndUpdate(
     { shortId },
     {
@@ -34,7 +33,10 @@ async function generateShortUrl(req, res) {
     createdBy: req.user._id,
   });
 
-  return res.json({ id: shortId });
+  // return res.json({ id: shortId });
+  return res.render("home", {
+    id: shortId,
+  });
 }
 
 async function getAnalytics(req, res) {
