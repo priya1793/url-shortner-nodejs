@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include("./partials/_head") %>
+    <title>Home | URL Shortner</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>URL Shortner</h1>
+      <% if(locals.id){ %>
+      <p>
+        Generated URL:
+        <a href="http://localhost:5000/url/<%= id %>"
+          >http://localhost:5000/url/<%= id %></a
+        >
+      </p>
+      <% } %>
+
+      <form method="post" action="/url">
+        <div class="mb-3">
+          <label for="url" class="form-label">Enter your URL</label>
+          <input
+            type="text"
+            name="url"
+            class="form-control"
+            id="url"
+            placeholder="https://www.google.com"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Generate</button>
+      </form>
+
+      <% if(locals.urls){ %>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">ShortId</th>
+            <th scope="col">Redirect URLs</th>
+            <th scope="col">No. of Clicks</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% urls.forEach((url, index) => { %>
+          <tr>
+            <th scope="row"><%= index+1 %></th>
+            <td><%= url.shortId %></td>
+            <td><%= url.redirectUrl %></td>
+            <td><%= url.visitedHistory.length %></td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+      <% } %>
+    </div>
+    <%- include("./partials/_scripts") %>
+  </body>
+</html>

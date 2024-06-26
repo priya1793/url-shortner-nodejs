@@ -1,0 +1,25 @@
+{
+  "name": "url-shortner-nodejs",
+  "version": "1.0.0",
+  "description": "A Url Shortner application using nodejs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "mongoose": "^8.4.3",
+    "nanoid": "^5.0.7",
+    "shortid": "^2.2.16",
+    "uuid": "^10.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}
